@@ -3,4 +3,3 @@ venv/
 migrations/
 events.db
 *.pyc
-scrape.sh
