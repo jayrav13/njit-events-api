@@ -1,0 +1,19 @@
+body
+{
+	padding-top:60px;
+}
+
+div.registration-form
+{
+	overflow:hidden;
+}
+
+#response
+{
+	text-align:center;
+}
+
+.center
+{
+	text-align:center;
+}

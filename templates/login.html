@@ -1,0 +1,50 @@
+{% include 'standards/header.html' %}
+
+<div class="container-fluid">
+	<div class="col-md-8 col-md-offset-2">
+		<div class="well well-sm" style="overflow:hidden">
+			<div class="center">
+				<h1>Login <small>email and password needed</small></h1>
+			</div>
+			<div class="col-md-6 col-md-offset-3">
+				<div id="response" class="placeholder">
+					{% if message is defined %}
+					<div class=alert alert-{{ type }} role="alert">{{ message }}</div>
+					{% endif %}
+				</div>
+				<form method="POST" action="/login">
+					<div class="form-group">
+						<label for="email">Email Address</label>
+						<input type="email" class="form-control" id="email" name="email" placeholder="jhr3@njit.edu">
+					</div>
+					<div class="form-group">
+						<label for="password">Password</label>
+						<input type="password" class="form-control" id="password" name="password" placeholder="p@$sw3rd">
+					</div>
+					<button name="login" id="login" type="submit" class="btn btn-primary">Login</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#register").click(function(event) {
+			event.preventDefault();
+			$.ajax({
+				type:"POST",
+				url:"/login",
+				data:{'email':$("#email").val(), 'password': $("#password").val()}
+			}).success(function(data) {
+				$("#response").attr("class","alert alert-success");
+				$("#response").html("Success! Your API key is: " + data['success']);
+			}).fail(function(data) {
+				$("#response").attr("class", "alert alert-danger");
+				$("#response").html("Sorry, that email address is already registered. Try another!");
+			});
+		})
+	});
+</script>
+
+{% include 'standards/footer.html' %}

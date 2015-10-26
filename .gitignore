@@ -1,0 +1,6 @@
+venv/
+.DS_Store
+migrations/
+events.db
+*.pyc
+scrape.sh
