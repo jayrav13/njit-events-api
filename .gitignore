@@ -3,3 +3,4 @@ venv/
 migrations/
 events.db
 *.pyc
+secret.py

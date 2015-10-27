@@ -6,7 +6,7 @@ from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 
 # sqlalchemy
-from sqlalchemy import Integer, ForeignKey, String, Column, Float
+from sqlalchemy import Integer, ForeignKey, String, Column, Float, Text
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.associationproxy import association_proxy
 
@@ -14,9 +14,12 @@ from sqlalchemy.ext.associationproxy import association_proxy
 import time
 import hashlib
 
+# keys
+import secret
+
 # set up app
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///events.db" 
+app.config['SQLALCHEMY_DATABASE_URI'] = secret.DB_KEY 
 
 # set up database
 db = SQLAlchemy(app)
@@ -27,16 +30,19 @@ manager = Manager(app)
 manager.add_command('events', MigrateCommand)
 
 class Events(db.Model):
+
+	__tablename__ = "eventsv2"
+
 	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String)
-	summary = db.Column(db.String)
-	location = db.Column(db.String)
-	dtstart = db.Column(db.String)
-	dtend = db.Column(db.String)
-	all_day = db.Column(db.String)
-	organization = db.Column(db.String)
-	description = db.Column(db.String)
-	category = db.Column(db.String)
+	name = db.Column(db.Text)
+	summary = db.Column(db.Text)
+	location = db.Column(db.Text)
+	dtstart = db.Column(db.Text)
+	dtend = db.Column(db.Text)
+	all_day = db.Column(db.Text)
+	organization = db.Column(db.Text)
+	description = db.Column(db.Text)
+	category = db.Column(db.Text)
 	
 	def __init__(self, name, summary, location, dtstart, dtend, all_day, organization, description, category):
 		self.name = name
@@ -50,10 +56,13 @@ class Events(db.Model):
 		self.category = category 
 		
 class Users(db.Model):
+
+	__tablename__ = "usersv2"
+
 	id = db.Column(db.Integer, primary_key=True)
-	email = db.Column(db.String)
-	password = db.Column(db.String)
-	token = db.Column(db.String)
+	email = db.Column(db.Text)
+	password = db.Column(db.Text)
+	token = db.Column(db.Text)
 
 	def __init__(self, email, password):
 		self.email = email
