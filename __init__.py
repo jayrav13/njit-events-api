@@ -4,6 +4,7 @@ from model import db, Events, Users
 from flask.ext.assets import Environment, Bundle
 import dateutil.parser
 import datetime
+import time
 import hashlib
 
 app = Flask(__name__)
@@ -70,13 +71,17 @@ def register():
 
 @app.route('/api/v0.2/events', methods=['GET'])
 def events():
+	start = time.time()
 	events = Events.query.all()
 	arr = []
 	currentdate = datetime.datetime.now()
 
+	count = 0
+
 	for event in events:
 
 		if currentdate < dateutil.parser.parse(event.dtend):
+			count = count + 1
 			dict = {
 				'id' : event.id,
 				'name' : event.name,
@@ -110,7 +115,14 @@ def events():
 			}
 			arr.append(dict)
 
-	return make_response(jsonify({'response' : arr}), 200)
+	response = {
+		"response" : arr,
+		"current_time" : currentdate.strftime("%I:%M %p"),
+		"count" : count,
+		"completion_time" : str(time.time() - start)
+	}
+
+	return make_response(jsonify(response), 200)
 
 	
 if __name__ == "__main__":
