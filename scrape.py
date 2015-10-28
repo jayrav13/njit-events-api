@@ -1,6 +1,7 @@
 # imports
 import requests
 from lxml import html
+from HTMLParser import HTMLParser
 from model import db, Events
 import urllib2
 
@@ -43,6 +44,13 @@ for line in events:
 
 	# if this is the end of an event, create an event object and add it to the database. end recording.
 	if "END" in sections[0] and "VEVENT" in sections[1]:	
+		h = HTMLParser()
+		for index, elem in enumerate(arr):
+			try:
+				arr[index] = h.unescape(arr[index])
+			except:
+				pass
+
 		event = Events(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6], arr[7], arr[8])
 		db.session.add(event)
 		recording = False

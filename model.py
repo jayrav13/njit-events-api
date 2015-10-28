@@ -69,5 +69,21 @@ class Users(db.Model):
 		self.password = hashlib.md5(password).hexdigest()
 		self.token = hashlib.md5(email + ":" + str(time.time()) + ":" + password).hexdigest()
 
+class Analysis(db.Model):
+
+	__tablename__ = "analysisv2"
+
+	id = db.Column(db.Integer, primary_key=True)
+	datetime = db.Column(db.Text)
+	loadtime = db.Column(db.Text)
+	uid = db.Column(db.Text)
+	device = db.Column(db.Text)
+
+	def __init__(self, datetime, loadtime, uid, device):
+		self.datetime = datetime
+		self.loadtime = loadtime
+		self.uid = uid
+		self.device = device
+
 if __name__ == "__main__":
 	manager.run()

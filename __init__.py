@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, make_response, render_template, request, session, redirect
 import requests
-from model import db, Events, Users
+from model import db, Events, Users, Analysis
 from flask.ext.assets import Environment, Bundle
 import dateutil.parser
 import datetime
@@ -69,14 +69,23 @@ def register():
 				db.session.commit()
 				return make_response(jsonify({'success':user.token}), 200)
 
-@app.route('/api/v0.2/events', methods=['GET'])
+@app.route('/api/v0.2/events', methods=['POST'])
 def events():
 	start = time.time()
 	events = Events.query.all()
 	arr = []
 	currentdate = datetime.datetime.now()
-
 	count = 0
+
+	uid = ""
+	devicedata = request.get_json()
+
+	try:	
+		uid = devicedata["userid"]
+		device = devicedata["device"]
+	except:
+		uid = "Unavailable"
+		device = "Unavailable"
 
 	for event in events:
 
@@ -96,6 +105,7 @@ def events():
 					'currently_happening' : currentdate > dateutil.parser.parse(event.dtstart),
 					'all_day' : event.all_day == "TRUE",
 					'time_range_string' : dt_string(event.dtstart, '%I:%M %p') + " - " + dt_string(event.dtend, '%I:%M %p'),
+					'time_date_range_string' : dt_string(event.dtstart, '%m/%d/%Y %I:%M %p') + " - " + dt_string(event.dtend, '%m/%d/%Y %I:%M %p'),
 					'multiday' : dateutil.parser.parse(event.dtstart).date() != dateutil.parser.parse(event.dtend).date(),
 					'start' : {
 						'dtstart' : event.dtstart,
@@ -115,15 +125,21 @@ def events():
 			}
 			arr.append(dict)
 
+	totaltime = time.time() - start
+	analysis = Analysis(currentdate.strftime("%Y-%m-%d %H:%M:%S"), str(totaltime), uid, device)
+	db.session.add(analysis)
+	db.session.commit()
+
 	response = {
 		"response" : arr,
 		"current_time" : currentdate.strftime("%I:%M %p"),
+		"current_date" : currentdate.strftime("%m/%d/%Y"),
 		"count" : count,
-		"completion_time" : str(time.time() - start)
+		"completion_time" : str(totaltime)
 	}
 
 	return make_response(jsonify(response), 200)
 
 	
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', debug=True)
+	app.run(debug=True, host='0.0.0.0')
