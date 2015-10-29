@@ -4,3 +4,4 @@ migrations/
 events.db
 *.pyc
 secret.py
+api-request.sh

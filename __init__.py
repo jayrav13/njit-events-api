@@ -126,7 +126,7 @@ def events():
 			arr.append(dict)
 
 	totaltime = time.time() - start
-	analysis = Analysis(currentdate.strftime("%Y-%m-%d %H:%M:%S"), str(totaltime), uid, device)
+	analysis = Analysis(currentdate.strftime("%Y-%m-%d %H:%M:%S"), str(totaltime), uid, device, request.remote_addr)
 	db.session.add(analysis)
 	db.session.commit()
 

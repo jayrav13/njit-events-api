@@ -78,12 +78,14 @@ class Analysis(db.Model):
 	loadtime = db.Column(db.Text)
 	uid = db.Column(db.Text)
 	device = db.Column(db.Text)
+	ip = db.Column(db.Text)
 
-	def __init__(self, datetime, loadtime, uid, device):
+	def __init__(self, datetime, loadtime, uid, device, ip):
 		self.datetime = datetime
 		self.loadtime = loadtime
 		self.uid = uid
 		self.device = device
+		self.ip = ip
 
 if __name__ == "__main__":
 	manager.run()
