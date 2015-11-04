@@ -86,7 +86,7 @@ else:
 	# Input JSON element - ouput validity.
 	def valid_event(elem):
 		if (elem["datetime"]["is_today"] == True or elem["datetime"]["is_tomorrow"] == True):
-			if (elem["datetime"]["multiday"] == False and elem["datetime"]["currently_happening"] == False):
+			if (elem["datetime"]["multiday"] == False and (elem["datetime"]["currently_happening"] == False or elem["datetime"]["starting_now"] == True)):
 				return True
 		return False 
 

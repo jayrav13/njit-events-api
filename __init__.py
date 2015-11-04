@@ -103,6 +103,7 @@ def events():
 				'datetime' : {
 					'is_today' : currentdate.date() == dateutil.parser.parse(event.dtstart).date(),
 					'is_tomorrow' : currentdate.date() + datetime.timedelta(days=1) == dateutil.parser.parse(event.dtstart).date(),
+					'starting_now' : currentdate.hour == dateutil.parser.parse(event.dtstart).hour,
 					'currently_happening' : currentdate > dateutil.parser.parse(event.dtstart),
 					'all_day' : event.all_day == "TRUE",
 					'time_range_string' : dt_string(event.dtstart, '%I:%M %p') + " - " + dt_string(event.dtend, '%I:%M %p'),
