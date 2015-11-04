@@ -2,7 +2,7 @@
 import requests
 from lxml import html
 from HTMLParser import HTMLParser
-from model import db, Events
+from model import db, Events, Posted
 import urllib2
 
 # arr is for event data to be stored, recording is a flag to determine when to commit data to the database.
@@ -12,6 +12,7 @@ recording = False
 
 # Clear all events from the database
 Events.query.delete()
+Posted.query.delete()
 
 # pull all events from .ics file
 events = urllib2.urlopen("http://25livepub.collegenet.com/calendars/NJIT_EVENTS.ics")

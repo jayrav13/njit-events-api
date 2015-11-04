@@ -87,5 +87,15 @@ class Analysis(db.Model):
 		self.device = device
 		self.ip = ip
 
+class Posted(db.Model):
+
+	__tablename__ = "postedv2"
+
+	id = db.Column(db.Integer, primary_key=True)
+	event_id = db.Column(db.Integer)
+
+	def __init__(self, event_id):
+		self.event_id = event_id
+
 if __name__ == "__main__":
 	manager.run()

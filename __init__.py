@@ -2,13 +2,14 @@ from flask import Flask, jsonify, make_response, render_template, request, sessi
 import requests
 from model import db, Events, Users, Analysis
 from flask.ext.assets import Environment, Bundle
+from secret import app_secret_key
 import dateutil.parser
 import datetime
 import time
 import hashlib
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'My-Secret-Key'
+app.config['SECRET_KEY'] = app_secret_key
 assets = Environment(app)
 
 css = Bundle('css/styles.css', output='gen/packed.css')
