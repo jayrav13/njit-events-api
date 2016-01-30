@@ -37,7 +37,7 @@ if(currenttime.hour == 8):
 			total = total + 1
 
 	if total > 0:
-		tweet = "There are " + str(total) + " events taking place today! Be sure to stop by and check some out! via @EventsAtNJIT"
+		tweet = "There are " + str(total) + " events taking place today at NJIT! Be sure to stop by and check some out!"
 	else:
 		tweet = "Ah - no events going on today! Be sure to check back tomorrow to see what's going on!"
 

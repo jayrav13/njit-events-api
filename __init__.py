@@ -70,7 +70,7 @@ def register():
 				db.session.commit()
 				return make_response(jsonify({'success':user.token}), 200)
 
-@app.route('/api/v0.2/events', methods=['POST'])
+@app.route('/api/v0.2/events', methods=['POST', 'GET'])
 def events():
 	start = time.time()
 	events = Events.query.all()
