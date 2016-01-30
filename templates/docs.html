@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta charset="UTF-8">
+                <meta name="description" content="A RESTful API for NJIT's Events.">
+                <meta name="keywords" content="njit, new, jersey, institute, of, technology, web, app, application, events, club, group, organization">
+                <meta name="author" content="Jay Ravaliya">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+
+                <title>Events at NJIT - API</title>
+                <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>      
+                <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+                <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">    
+
+                {% assets 'css_all' %}
+                <link type="text/css" rel="stylesheet" href="{{ ASSET_URL }}"></link>
+                {% endassets %}
+
+        </head>
+        <body>
+                <!--navbar-->
+                <nav class="navbar navbar-inverse navbar-fixed-top">
+                        <div class="container">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+                                <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                                <span class="sr-only">Toggle navigation</span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                        </button>
+                                        <a class="navbar-brand" href="/docs">Events at NJIT</a>
+                                </div>
+
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                        <ul class="nav navbar-nav">
+                                        </ul>
+                                </div><!-- /.navbar-collapse -->
+                        </div><!-- /.container-fluid -->
+                </nav>  
+
+		<div class="container">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">About</h3>
+					</div>
+					<div class="panel-body">
+						This API was created to support the <a href="https://itunes.apple.com/us/app/events-at-njit/id1044916962" target="_BLANK">Events at NJIT</a> iOS app at first. However, it only seems right that this API should be exposed for other NJIT developers to use as well!
+					</div>
+				</div>
+
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Make a Request</h3>
+					</div>
+					<div class="panel-body">
+						The current endpoint for this API is <a href="http://eventsatnjit.jayravaliya.com/api/v0.2/events" target="_BLANK">http://eventsatnjit.jayravaliya.com/api/v0.2/events</a>. A simple request will return to you up to 600 upcoming events at NJIT. The data is refreshed every Monday morning at 8:00am EST.
+					</div>
+				</div>
+
+                                <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                                <h3 class="panel-title">Response Details</h3>
+                                        </div>
+                                        <div class="panel-body">
+						The result will include high level statistics of the request:<br />
+						<pre>
+{
+	"completion_time": "0.695343971252",
+	"count": 421,
+	"current_date": "01/30/2016",
+	"current_time": "05:37 PM",
+	"response" : [...]
+}
+						</pre><br />
+						Within the "response" array will be a detailed overview of each event, such as:
+						<pre>
+{
+	"category": "Meeting, Forum", 
+	"datetime": {
+		"all_day": false, 
+		"currently_happening": false, 
+		"end": {
+			"common_formats": {
+				"date": "02/05/2016", 
+				"time": "01:00 PM"
+			}, 
+			"dtend": "20160205T130000"
+		}, 
+		"is_today": false, 
+		"is_tomorrow": false, 
+		"multiday": false, 
+		"start": {
+			"common_formats": {
+				"date": "02/05/2016", 
+				"time": "12:00 PM"
+			}, 
+			"dtstart": "20160205T120000"
+		}, 
+		"starting_now": false, 
+		"time_date_range_string": "02/05/2016 12:00 PM - 02/05/2016 01:00 PM", 
+		"time_range_string": "12:00 PM - 01:00 PM"
+	}, 
+	"description": "For additional information, please contact Eduardo Preciado at ejp9@nijt.edu", 
+	"id": 7103, 
+	"location": "GITC 4415 Conference room", 
+	"name": "ACM - General Meetings", 
+	"organization": "Computer Science", 
+	"summary": "ACM - General Meetings"
+}
+						</pre>
+                                        </div>
+                                </div>
+				<div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                                <h3 class="panel-title">Contribute on GitHub</h3>
+                                        </div>
+                                        <div class="panel-body">
+						Have any further ideas? Contribute to the project at <a href="https://github.com/jayrav13/njit-events-api" target="_BLANK">https://github.com/jayrav13/njit-events-api</a>.
+                                        </div>
+                                </div>
+			</div>
+		</div>
+
+		<nav class="navbar navbar-default navbar-fixed-bottom">
+                        <div class="container">
+                                <ul class="nav navbar-nav navbar-right">
+                                        <li><p class="navbar-text">&#169; Jay Ravaliya.</p></li>
+                                </ul>
+                        </div>
+                </nav>
+        </body>
+</html>

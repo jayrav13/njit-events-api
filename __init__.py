@@ -36,39 +36,9 @@ def login_required(f):
 def home():
 	return "Hello, world!"
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-	if request.method == 'GET':
-		return render_template("login.html")
-	elif request.method == 'POST':
-		if 'email' not in request.form or 'password' not in request.form:
-			return "BAD"
-		else:
-			user = Users.query.filter_by(email=request.form['email']).filter_by(password=hashlib.md5(request.form['password']).hexdigest()).first()
-			
-			if user:
-				session['logged_in'] = user.id
-				return redirect('/user')
-			else:
-				return "BAD LOGIN"
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-	if request.method == 'GET':
-		return render_template("register.html", title="Register")
-	elif request.method == 'POST':
-		if 'email' not in request.form or 'password' not in request.form:	
-			return make_response(jsonify({'error':'Required fields not sent.'}), 400)
-		else:
-			user = Users.query.filter_by(email=request.form['email']).first()
-
-			if user:
-				return make_respose(jsonify({'error':'User already exists.'}), 409)
-			else:
-				user = Users(request.form['email'], request.form['password'])	
-				db.session.add(user)
-				db.session.commit()
-				return make_response(jsonify({'success':user.token}), 200)
+@app.route('/docs')
+def docs():
+	return render_template('docs.html')
 
 @app.route('/api/v0.2/events', methods=['POST', 'GET'])
 def events():
